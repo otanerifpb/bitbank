@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt_BR" 
+    xmlns:th="www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta th:insert="~{/fragments/header(titulo='Página Inicial da Aplicação')}">
+</head>
+
+<body>
+    <div th:replace="~{fragments/body :: logo(titulo='Bem Vindo ao Bitbank')}"></div>
+
+    <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" th:href="@{/correntistas}">Listar Correntistas</a>
+            <a class="nav-item nav-link" th:href="@{/contas}">Listar Contas</a>
+            <a class="nav-item nav-link" th:href="@{/contas/nuconta}">Operações com a Conta</a>
+        </div>
+        
+        <div th:replace="~{fragments/body :: sair}"></div>
+    </nav>
+
+    <div class="home-page mb-3 p-3">
+        <!-- <span class="logo-font"><img th:src="@{/imagens/bitbank-header-t.png}" />BitBank</span> -->
+        <img th:src="@{/imagens/home-page.jpg}" height="500" width="1420"/>
+    </div>
+
+    <!-- <ul>
+        <li>
+            <a href="correntistas">Listar correntistas</a>
+        </li>
+        <li>
+            <a href="contas">Listar contas</a>
+        </li>
+        <li>
+            <a href="contas/nuconta">Operações com a conta</a>
+        </li>
+    </ul> -->
+
+</body>
+
+</html>

@@ -1,0 +1,107 @@
+<!doctype html5>
+<html lang="pt_BR" xmlns:th="www.thymeleaf.org">
+
+<head>
+    <meta th:insert="~{/fragments/header(titulo='Cadastro de Operações')}">
+</head>
+
+<body>
+    <div class="logo-bar mb-3 p-0">
+        <span class="logo-font">
+            <img th:src="@{/imagens/bitbank-header-t.png}" />BitBank
+        </span>
+    </div>
+
+    <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" th:href="@{/home}">Home</a>
+            <a class="nav-item nav-link" th:href="@{/correntistas}">Correntistas</a>
+            <a class="nav-item nav-link" th:href="@{/contas}">Contas</a>
+        </div>
+        <div style="margin-right: 5px;">
+            <a class="nav-item nav-link" th:href="@{/home}">
+                <button class="btn btn-outline-secondary my-2 my-sm-0">Sair</button>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="card">
+
+            <div th:text="${mensagem}" 
+                    th:if="${mensagem ne null}" 
+                    class="alert alert-error" 
+                    style="background-color: red;"></div></div>
+
+            <div class="card-header">
+                Cadastro de Operações
+            </div>
+
+            <!-- <div th:text="${mensagem}" 
+                th:if="${mensagem ne null}" 
+                class="alert alert-success"></div> -->
+
+            <div class="card-body">
+
+                <!-- <div th:text="${mensagem}" 
+                    th:if="${mensagem ne null}" 
+                    class="alert alert-success"></div> -->
+
+                <div th:if="${conta == null}">
+                    <form th:action="@{/contas/operacao}" method="POST">
+                        <div class="row">
+                            <div class="col-md-2 mb-2">
+                                <label for="nuConta">Número da conta</label>
+                                <input type="text" id="nuConta" name="nuConta" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <button class="btn btn-primary btn-md btn-block" type="submit">
+                                    Próximo
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div th:if="${conta != null}">
+                    <ul>
+                        <li>Conta:
+                            <span th:text="${conta.numero}"></span>
+                        </li>
+                        <li>Correntista:
+                            <span th:text="${conta.correntista.nome}"></span>
+                        </li>
+                        <li>Data abertura:
+                            <span th:text="${conta.data}"></span>
+                        </li>
+                    </ul>
+
+                    <div style="margin-bottom: 30px;"></div>
+
+                    <h4>Informações da transação</h4>
+                    <hr class="mb-4">
+
+                    <form action="operacao" method="POST" th:object="${transacao}">
+                        <input type="hidden" th:field="*{id}" />
+                        <input type="hidden" th:value="${conta.numero}" id="nuConta" name="nuConta" />
+                        <label for="descricao">Descrição</label>
+                        <input type="text" class="form-control" th:field="*{descricao}" /> <br />
+
+                        <label for="data">Data</label>
+                        <input type="text" class="form-control" th:field="*{data}" /> <br />
+                        <label for="valor">Valor</label>
+                        <input type="text" class="form-control" th:field="*{valor}" /><br />
+
+                        <button type="submit" class="btn btn-primary">Realizar operação</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

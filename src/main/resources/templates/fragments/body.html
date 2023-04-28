@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<body >
+    <div class="logo-bar mb-3 p-0" th:fragment="logo(titulo)">
+        <span class="logo-font">
+            <img th:src="@{/imagens/bitbank-header-t.png}" th:text="${titulo}"></img> 
+        </span>
+    </div> 
+
+    <div style="margin-right: 5px;" th:fragment="sair">
+        <a href="#">
+            <button class="btn btn-outline-secondary my-2 my-sm-0">Sair</button>
+        </a>
+    </div>
+</body>
+</html>

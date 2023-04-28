@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt_BR" xmlns:th="www.thymeleaf.org">
+
+<head>
+    <meta th:insert="~{/fragments/header(titulo='Cadastro de Conta')}">
+</head>
+
+<body>
+    <div th:replace="~{fragments/body(titulo='Bitbank')}"></div>
+
+    <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" th:href="@{/home}">Home</a>
+            <a class="nav-item nav-link" th:href="@{/correntistas}">Correntistas</a>
+            <a class="nav-item nav-link" th:href="@{/contas}">Contas</a>
+            <a class="nav-item nav-link" th:href="@{/contas/nuconta}">Operações</a>
+        </div>
+        
+        <div th:replace="~{fragments/body :: sair}"></div>
+    </nav>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                Cadastro de Conta
+            </div>
+            <div class="card-body">
+
+                <!-- <div th:text="${mensagem}" th:if="${mensagem ne null}" class="alert alert-success"></div> -->
+
+                <form th:action="@{/contas}" method="POST" th:object="${conta}">
+                    <input type="hidden" th:field="*{id}" class="form-control" />
+
+                    <label for="correntista">Número</label>
+                        <input type="number" required th:field="*{numero}" class="form-control" /><br /><br />
+                    <!-- Sincronismo do correntista na conta -->
+                    <label for="correntista">Correntista</label>
+                    <select required th:field="*{correntista}" class="form-select">
+                        <option th:each="cor : ${correntistaItems}" 
+                            th:value="${cor.id}" 
+                            th:text="${cor.nome}" 
+                            th:selected="${cor.id == correntista}">
+                    </select>
+                    <br /><br />
+
+                    <label for="lastName">Data</label>
+                        <input type="date" required th:field="*{data}" class="form-control" /><br /><br />
+
+                    <hr>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <a class="btn btn-secondary" th:href="@{/contas}">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

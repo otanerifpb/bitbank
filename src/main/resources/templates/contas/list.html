@@ -1,0 +1,94 @@
+<!doctype html5>
+<html lang="pt_BR" xmlns:th="www.thymeleaf.org">
+
+<head>
+    <meta th:insert="~{/fragments/header(titulo='Contas Cadastradas')}">
+</head>
+
+<body>
+    <div class="logo-bar mb-3 p-0">
+        <span class="logo-font">
+            <img th:src="@{/imagens/bitbank-header-t.png}" />BitBank
+        </span>
+    </div>
+
+    <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" th:href="@{/home}">Home</a>
+            <a class="nav-item nav-link" th:href="@{/correntistas}">Correntistas</a>
+            <a class="nav-item nav-link" th:href="@{/contas/nuconta}">Operações</a>
+        </div>
+        <div style="margin-right: 5px;">
+            <a class="nav-item nav-link" th:href="@{/home}">
+                <button class="btn btn-outline-secondary my-2 my-sm-0">Sair</button>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <!-- <div th:text="${mensagem}" 
+                    th:if="${mensagem ne null}" 
+                    class="alert alert-error" 
+                    style="background-color: red;"></div></div> -->
+
+        <div class="card">
+            <div class="card-header">
+                Cadastro de Contas
+            </div>
+            <div class="card-body">
+
+                <div th:text="${mensagem}" 
+                    th:if="${mensagem ne null}" 
+                    class="alert alert-success"></div>
+
+                <form th:action="@{/contas/form}" method="GET">
+                    <button class="btn btn-primary" type="submit">
+                        Nova
+                    </button>
+                </form>
+                <br />
+
+                <!-- <div th:text="${mensagem}" 
+                    th:if="${mensagem ne null}" 
+                    class="alert alert-success"></div> -->
+
+                <div th:if="${not #lists.isEmpty(contas)}">
+                    <!-- Controle de registros na tabela -->
+                    <div th:text="'Total: ' + ${#lists.size(contas)} + ' registro(s)'" 
+                        style="text-align: right; color: gray; font-size: 0.85em;">
+                    </div>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Número</th>
+                                <!-- Sincronismo correntista com a conta -->
+                                <th>Correntista</th>
+                                <th style="text-align: center;">Data abertura</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="conta : ${contas}">
+                                <td><a th:href="@{/contas/{id}(id=${conta.id})}" th:text="${conta.numero}"></a></td>
+                                <!-- Sincronismo da conta com um correntista -->
+                                <td><a th:text="${conta.correntista.nome}"></a></td>
+                                <td th:text="${#dates.format(conta.data, 'dd ''de'' MMMM ''de'' yyyy')}" style="text-align: center;">
+                                <!-- <td th:text="${conta.data}" style="text-align: center;"></td> -->
+                                <td>
+                                    <form th:action="@{/contas/{id}/delete(id=${conta.id})}">
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            Excluir
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

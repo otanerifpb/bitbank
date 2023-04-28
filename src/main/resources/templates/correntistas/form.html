@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt_BR" xmlns:th="www.thymeleaf.org">
+
+<head>
+    <meta th:insert="~{/fragments/header(titulo='Cadastro de Correntista')}">
+</head>
+
+<body>
+    <div class="logo-bar mb-3 p-0">
+        <span class="logo-font">
+            <img th:src="@{/imagens/bitbank-header-t.png}" />BitBank
+        </span>
+    </div>
+
+    <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" th:href="@{/home}">Home</a>
+            <a class="nav-item nav-link" th:href="@{/correntistas}">Correntistas</a>
+            <a class="nav-item nav-link" th:href="@{/contas}">Contas</a>
+            <a class="nav-item nav-link" th:href="@{/contas/nuconta}">Operações</a>
+        </div>
+        <div style="margin-right: 5px;">
+            <a class="nav-item nav-link" th:href="@{/correntistas}">
+                <button class="btn btn-outline-secondary my-2 my-sm-0">Sair</button>
+            </a>
+            </div>
+    </nav>
+
+    <div class="container">
+        <div th:text="${mensagem}" class="msg-erro"></div>
+
+        <div class="card">
+            <div class="card-header">
+                Cadastro de Correntista
+            </div>
+            <div class="card-body">
+
+                <!-- <div th:text="${mensagem}" 
+                    th:if="${mensagem ne null}" 
+                    class="alert alert-error" 
+                    style="background-color: red;"></div> -->
+
+                <form th:action="@{/correntistas}" method="POST" th:object="${correntista}">
+                    <input type="hidden" required th:field="*{id}" />
+                    <label for="nome" class="form-label">Nome:</label>
+                        <input type="text" class="form-control" required th:field="*{nome}" maxlength="50"/></br>
+                    <label for="nome" class="form-label">Senha:</label>
+                        <input type="password" required th:field="*{senha}" class="form-control" minlength="3"/></br>
+                    <label for="nome" class="form-label">Email:</label>
+                        <input type="email" required th:field="*{email}" class="form-control"/></br>
+                    <label for="nome" class="form-label">Admin?</label>
+                        <input type="checkbox" th:field="*{admin}" class="form-check-input"/></br></br>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
